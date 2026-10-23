@@ -9,6 +9,14 @@
   {{- else }}
   {{ errorf "slide: missing image %q in %s" ($.Get "img") $.Page.File.Path }}
   {{- end }}
+  {{- with .Get "videoFile" }}
+  {{- with $.Page.Resources.Get . }}
+  {{- $poster := $.Page.Resources.Get (replace ($.Get "videoFile") ".mp4" ".webp") }}
+  <video class="docent-slide__video" src="{{ .RelPermalink }}"{{ with $poster }} poster="{{ .RelPermalink }}"{{ end }} controls preload="metadata" playsinline muted loop></video>
+  {{- else }}
+  {{ errorf "slide: missing video %q in %s" ($.Get "videoFile") $.Page.File.Path }}
+  {{- end }}
+  {{- end }}
   <figcaption>
     <a class="docent-slide__num" href="#{{ lower $label }}-{{ $n }}">{{ $label }} {{ $n }}</a>
     {{- with .Get "video" }} · <a class="docent-video" href="{{ . }}" target="_blank" rel="noopener">▶ Watch video</a>{{ end }}

@@ -19,8 +19,13 @@ hugo server --port 1320
 
 ## Videos
 
-Videos embedded in PowerPoint decks are not hosted on the site. Each one is listed in `videos.csv` and extracted to `temp/videos/`.
-To link one, put its public or unlisted YouTube URL in the `url` column, then rerun with `--force --only "<deck name>"`.
+Each video embedded in a PowerPoint deck is listed in `videos.csv` and extracted to `temp/videos/`. The `url` column decides how a slide shows it:
+
+- a public or unlisted YouTube URL: the slide links to it (preferred)
+- `host`: the clip is compressed (≤1280 px, ≤30 fps, no audio) and played on the slide. Use this only for short clips with no public source.
+- empty: the slide says "Video not yet linked"
+
+After editing `videos.csv`, rerun with `--force --only "<deck name>"`.
 
 ## Publishing
 

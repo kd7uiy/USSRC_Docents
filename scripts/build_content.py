@@ -7,13 +7,13 @@ bundles beside it; images in a folder become that folder's gallery. Unchanged fi
 skipped using content-manifest.json; outputs of deleted sources are removed.
 """
 import argparse
-import shutil
 import sys
 import traceback
 from pathlib import Path
 
 from docent import docx_convert, pdf_convert, pptx_convert
 from docent.images import to_webp
+from docent import outputs as outputs_mod
 from docent.manifest import Manifest
 from docent.markup import front_matter
 from docent.slugs import slugify, unique_slug
@@ -44,12 +44,7 @@ def plan_folder(folder: Path):
 
 
 def remove_outputs(outputs):
-    for rel in outputs:
-        target = ROOT / rel
-        if target.is_dir():
-            shutil.rmtree(target)
-        elif target.exists():
-            target.unlink()
+    outputs_mod.remove_outputs(ROOT, outputs)
 
 
 def main():
@@ -74,8 +69,11 @@ def main():
             return
         print(f"[{kind}] {rel}", flush=True)
         old = manifest.entries.get(rel, {}).get("outputs", [])
-        remove_outputs(old)
+        # Forget first: if anything below fails, the next run reconverts instead of trusting a half-deleted bundle.
+        manifest.forget(rel)
+        manifest.save()
         try:
+            remove_outputs(old)
             run()
             manifest.record(rel, digest, outputs)
             manifest.save()

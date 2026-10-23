@@ -39,7 +39,7 @@ https://vickiekloeris.com/
 Here’s an overview of what I’ll be discussing today.
 {{< /slide >}}
 
-{{< slide n="5" img="slides/slide-005.webp" videoPending="media1.mp4" >}}
+{{< slide n="5" img="slides/slide-005.webp" videoFile="videos/slide-005.mp4" >}}
 First of all I should clarify that spacecraft (and the astronauts inside them) orbiting the Earth experience what we refer to as 'microgravity,' not zero gravity.
 In the early 1960s both the US and the Soviets were developing spacecraft and dealing with the same issues.
 When we first sent people into space, neither the US nor the Soviets knew if humans could eat in space.

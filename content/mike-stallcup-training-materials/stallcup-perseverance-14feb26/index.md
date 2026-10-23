@@ -172,7 +172,7 @@ Materials used on Perseverance
   Composite materials: several Perseverance components, most of Ingenuity helicopter
 {{< /slide >}}
 
-{{< slide n="12" img="slides/slide-012.webp" videoPending="media1.mov" >}}
+{{< slide n="12" img="slides/slide-012.webp" videoFile="videos/slide-012.mp4" >}}
 Rovers wouldn't be any good without wheels, and these rovers have some pretty special wheels and suspension.
 Both have six wheels, that are all powered, in an arrangement called a 'rocker-bogie' that keeps all the wheels in contact with the ground as they roll over uneven terrain.
 The wheels on both sides of the vehicle are connected to each other so that when one set goes up, such as when they go over a rock, the wheels on the other side are pushed down which raises that side of the vehicle, keeping it fairly level.

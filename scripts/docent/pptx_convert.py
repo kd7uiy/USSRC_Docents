@@ -11,6 +11,7 @@ from pptx import Presentation
 
 from .images import to_webp
 from .markup import front_matter, shortcode_text
+from .videos import compress_video
 
 SLIDE_WIDTH = 1600
 VIDEO_EXTS = {".mp4", ".mov", ".m4v", ".wmv", ".avi", ".mpg", ".mpeg"}
@@ -65,7 +66,7 @@ def export_slide_pngs(path: Path, out_dir: Path) -> list:
 
 
 def convert(src: Path, bundle: Path, title: str, weight: int, video_links) -> list:
-    """video_links(src, slide_no, media_name) -> (url or None). Returns slide info."""
+    """video_links(src, slide_no, media_name) -> ("url", url) | ("file", path) | (None, None)."""
     slides = read_slides(src)
     (bundle / "slides").mkdir(parents=True, exist_ok=True)
     with tempfile.TemporaryDirectory() as tmp:
@@ -79,8 +80,15 @@ def convert(src: Path, bundle: Path, title: str, weight: int, video_links) -> li
             continue
         attrs = [f'n="{s.number}"', f'img="slides/slide-{s.number:03d}.webp"']
         for media in s.videos:
-            url = video_links(src, s.number, media)
-            attrs.append(f'video="{url}"' if url else f'videoPending="{media}"')
+            kind, value = video_links(src, s.number, media)
+            if kind == "file":
+                rel = f"videos/slide-{s.number:03d}.mp4"
+                compress_video(value, bundle / rel)
+                attrs.append(f'videoFile="{rel}"')
+            elif kind == "url":
+                attrs.append(f'video="{value}"')
+            else:
+                attrs.append(f'videoPending="{media}"')
             break  # one video link per slide keeps the caption readable
         parts.append(f"{{{{< slide {' '.join(attrs)} >}}}}\n{shortcode_text(s.notes)}\n{{{{< /slide >}}}}\n\n")
     (bundle / "index.md").write_text("".join(parts), "utf-8")
