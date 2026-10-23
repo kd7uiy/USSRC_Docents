@@ -374,7 +374,7 @@ In 2015 ESA astronaut Samantha Cristoforetti used an experimental version of the
 ————- Extra Info —————
 {{< /slide >}}
 
-{{< slide n="23" img="slides/slide-023.webp" videoPending="media2.mp4" >}}
+{{< slide n="23" img="slides/slide-023.webp" video="https://www.youtube.com/watch?v=YdTfK--uSNA" >}}
 A formal experiment to study the effects of capillary flow was sent to the ISS in 2015.
 This video features astronaut Kjell ('chell') Lundgren discussing the experiment and demonstrating the cup.
 <Start the video, wait for it to finish.>  (controls: K=stop/start, J=step back; L=step forward; Shift-J=Rev Shift L=FFWD)
