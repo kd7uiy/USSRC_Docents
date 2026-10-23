@@ -1,5 +1,4 @@
-# TODO: replace <USERNAME> with the GitHub account that owns the USSRC_Docents repo.
-baseURL = "https://<USERNAME>.github.io/USSRC_Docents/"
+baseURL = "https://kd7uiy.github.io/USSRC_Docents/"
 locale = "en-us"
 title = "USSRC Docents"
 theme = "hugo-geekdoc"
