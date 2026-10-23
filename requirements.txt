@@ -1,0 +1,7 @@
+python-pptx
+pywin32
+PyMuPDF
+Pillow
+pillow-heif
+PyYAML
+pytest

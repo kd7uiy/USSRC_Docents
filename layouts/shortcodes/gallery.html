@@ -1,0 +1,13 @@
+{{- /* Thumbnail grid of every *.webp in the bundle that has a matching thumbs/ entry. */ -}}
+<div class="docent-gallery">
+{{- range .Page.Resources.Match "images/*.webp" }}
+  {{- $thumb := $.Page.Resources.Get (replace .Name "images/" "thumbs/") }}
+  {{- $caption := .Params.caption | default (.Name | path.Base | strings.TrimSuffix ".webp") }}
+  <figure>
+    <a href="{{ .RelPermalink }}" class="docent-lightbox" data-caption="{{ $caption }}">
+      <img src="{{ (or $thumb .).RelPermalink }}" loading="lazy" alt="{{ $caption }}">
+    </a>
+    <figcaption>{{ $caption }}</figcaption>
+  </figure>
+{{- end }}
+</div>

@@ -1,0 +1,24 @@
+/* Slides / PDF pages */
+.docent-slide { margin: 0 0 2.5rem; }
+.docent-slide img { display: block; width: 100%; height: auto; border: 1px solid var(--accent-color, #ddd); border-radius: 4px; }
+.docent-slide figcaption { font-size: .9rem; margin-top: .4rem; opacity: .8; }
+.docent-slide__num { font-weight: 600; text-decoration: none; }
+.docent-slide__notes { margin-top: .6rem; padding: .6rem .9rem; border-left: 3px solid var(--accent-color, #aaa); background: var(--code-background, rgba(127,127,127,.08)); font-size: .95rem; }
+.docent-slide__notes > :first-child { margin-top: 0; }
+.docent-slide__notes > :last-child { margin-bottom: 0; }
+.docent-video--pending { font-style: italic; }
+
+/* Converted Word documents: keep images inside the column */
+.gdoc-markdown img { max-width: 100%; height: auto; }
+.gdoc-markdown table { display: block; overflow-x: auto; }
+
+/* Photo gallery */
+.docent-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
+.docent-gallery figure { margin: 0; }
+.docent-gallery img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; display: block; }
+.docent-gallery figcaption { font-size: .85rem; margin-top: .3rem; line-height: 1.3; overflow-wrap: anywhere; }
+
+/* Lightbox */
+.docent-lb { position: fixed; inset: 0; background: rgba(0,0,0,.9); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; padding: 16px; cursor: zoom-out; }
+.docent-lb img { max-width: 100%; max-height: calc(100vh - 80px); object-fit: contain; }
+.docent-lb p { color: #eee; margin: .6rem 0 0; text-align: center; }

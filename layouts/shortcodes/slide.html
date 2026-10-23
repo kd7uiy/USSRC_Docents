@@ -1,0 +1,25 @@
+{{- /* One slide or PDF page: image (page-bundle resource) with optional plain-text notes as inner content.
+       collapse="true" puts the text in a <details> block (used for PDF page text). */ -}}
+{{- $n := .Get "n" -}}
+{{- $label := .Get "label" | default "Slide" -}}
+{{- $img := .Page.Resources.Get (.Get "img") -}}
+<figure class="docent-slide" id="{{ lower $label }}-{{ $n }}">
+  {{- with $img }}
+  <a href="{{ .RelPermalink }}" class="docent-lightbox"><img src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" loading="lazy" alt="{{ $label }} {{ $n }}"></a>
+  {{- else }}
+  {{ errorf "slide: missing image %q in %s" ($.Get "img") $.Page.File.Path }}
+  {{- end }}
+  <figcaption>
+    <a class="docent-slide__num" href="#{{ lower $label }}-{{ $n }}">{{ $label }} {{ $n }}</a>
+    {{- with .Get "video" }} · <a class="docent-video" href="{{ . }}" target="_blank" rel="noopener">▶ Watch video</a>{{ end }}
+    {{- with .Get "videoPending" }} · <span class="docent-video docent-video--pending">Video not yet linked</span>{{ end }}
+  </figcaption>
+  {{- with trim .Inner "\n " }}
+  {{- $text := . | htmlEscape | replaceRE "\r?\n" "<br>" | safeHTML }}
+  {{- if eq ($.Get "collapse") "true" }}
+  <details class="docent-slide__notes"><summary>Page text</summary>{{ $text }}</details>
+  {{- else }}
+  <div class="docent-slide__notes">{{ $text }}</div>
+  {{- end }}
+  {{- end }}
+</figure>

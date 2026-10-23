@@ -1,0 +1,9 @@
+# Raw source documents never go into Git
+/NASA Docents/
+/public/
+/resources/_gen/
+/.hugo_build.lock
+/.venv/
+/temp/
+__pycache__/
+.pytest_cache/

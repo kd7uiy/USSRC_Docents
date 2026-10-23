@@ -1,0 +1,31 @@
+# TODO: replace <USERNAME> with the GitHub account that owns the USSRC_Docents repo.
+baseURL = "https://<USERNAME>.github.io/USSRC_Docents/"
+locale = "en-us"
+title = "USSRC Docents"
+theme = "hugo-geekdoc"
+
+# Public but unlisted: robots.txt disallows everything and every page carries noindex.
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term", "rss", "sitemap"]
+
+pluralizeListTitles = false
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel = 3
+
+[params]
+  geekdocBreadcrumb = true
+  geekdocCollapseAllSections = true
+  geekdocSearch = true
+  geekdocSearchShowParent = true
+  geekdocSearchConfig = { enrichSearch = true, enableFullText = true }
+  geekdocDarkModeToggle = true
+  geekdocBackToTop = true
+  geekdocImageLazyLoading = true
+  geekdocNextPrev = false
+  geekdocToC = false
+  geekdocFileTreeSortBy = "weight"
