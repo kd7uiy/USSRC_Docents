@@ -17,6 +17,15 @@ hugo server --port 1320
 - `--only "<part of path>"` converts matching files only. `--force` reconverts regardless of hashes.
 - Folders become menu sections, and documents become pages: `.pptx` becomes slides with speaker notes, `.docx` becomes a web page, `.pdf` becomes page images with searchable text. Images in a folder become that folder's photo gallery.
 
+### Syncing the site to the folder
+
+To make the site match exactly what is in `NASA Docents/`, run the first command above with no options:
+
+- New and edited files are converted. Unchanged files are skipped.
+- Deleted files have their pages and images removed. Each one is printed as `[removed] <path>`.
+- Deleted or renamed folders have their menu section removed. Each one is printed as `[removed] section <slug>`.
+- The run ends with `done`, or lists any files that failed under `FAILED` and exits with an error.
+
 ## Videos
 
 Each video embedded in a PowerPoint deck is listed in `videos.csv` and extracted to `temp/videos/`. The `url` column decides how a slide shows it:
