@@ -35,3 +35,15 @@ def test_gives_up_after_retries(tmp_path, monkeypatch):
     monkeypatch.setattr(outputs.time, "sleep", lambda s: None)
     with pytest.raises(PermissionError):
         outputs.remove_outputs(tmp_path, ["d"])
+
+
+def test_removes_sections_of_deleted_folders(tmp_path):
+    for d in ("kept", "kept/sub", "gone", "gone/sub"):
+        (tmp_path / d).mkdir()
+        (tmp_path / d / "_index.md").write_text("x")
+    (tmp_path / "kept" / "doc").mkdir()
+    (tmp_path / "kept" / "doc" / "index.md").write_text("page bundle, not a section")
+    removed = outputs.remove_stale_sections(tmp_path, {tmp_path, tmp_path / "kept", tmp_path / "kept" / "sub"})
+    assert removed == ["gone"]
+    assert not (tmp_path / "gone").exists()
+    assert (tmp_path / "kept" / "sub" / "_index.md").exists() and (tmp_path / "kept" / "doc").exists()

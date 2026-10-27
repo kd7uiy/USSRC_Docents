@@ -4,7 +4,8 @@ Usage: python scripts/build_content.py "NASA Docents" [--only SUBSTRING] [--forc
 
 Each source folder becomes a section (content/<slug>/_index.md). Documents become page
 bundles beside it; images in a folder become that folder's gallery. Unchanged files are
-skipped using content-manifest.json; outputs of deleted sources are removed.
+skipped using content-manifest.json; outputs of deleted sources, and sections of deleted
+folders, are removed.
 """
 import argparse
 import sys
@@ -57,7 +58,7 @@ def main():
     source = Path(args.source).resolve()
     manifest = Manifest(ROOT / "content-manifest.json")
     videos = VideoRegistry(ROOT / "videos.csv", ROOT / "temp" / "videos")
-    present, failures = set(), []
+    present, sections, failures = set(), set(), []
 
     def process(src: Path, kind: str, run, outputs):
         rel = src.relative_to(source).as_posix()
@@ -85,6 +86,7 @@ def main():
 
     def walk(folder: Path, out: Path, title: str, weight: int, is_root=False):
         out.mkdir(parents=True, exist_ok=True)
+        sections.add(out)
         subdirs, docs, images = plan_folder(folder)
 
         for i, (src, slug) in enumerate(docs):
@@ -128,6 +130,8 @@ def main():
         print(f"[removed] {rel}")
         remove_outputs(outputs)
         manifest.forget(rel)
+    for rel in outputs_mod.remove_stale_sections(CONTENT, sections):
+        print(f"[removed] section {rel}")
     manifest.save()
     videos.save()
 
